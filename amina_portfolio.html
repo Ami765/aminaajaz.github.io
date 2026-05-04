@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Amina Ajaz — Web Developer & Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --bg2: #eeeae1;
+    --text: #1a1814;
+    --text2: #5a554a;
+    --accent: #2c5f8a;
+    --accent2: #1a3d5c;
+    --gold: #c9a84c;
+    --card: #ffffff;
+    --border: #ddd8cc;
+    --nav-bg: rgba(247,245,240,0.92);
+    --shadow: 0 4px 32px rgba(44,95,138,0.08);
+    --tag-bg: #e8f0f7;
+    --tag-text: #2c5f8a;
+    --input-bg: #fff;
+  }
+  [data-theme="dark"] {
+    --bg: #0f1218;
+    --bg2: #161b24;
+    --text: #e8e4da;
+    --text2: #9a9485;
+    --accent: #6aabde;
+    --accent2: #4d8fc7;
+    --gold: #d4aa5a;
+    --card: #1a2030;
+    --border: #2a3040;
+    --nav-bg: rgba(15,18,24,0.92);
+    --shadow: 0 4px 32px rgba(0,0,0,0.3);
+    --tag-bg: #1e2d3d;
+    --tag-text: #6aabde;
+    --input-bg: #1a2030;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.4s, color 0.4s;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: var(--nav-bg);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .theme-btn {
+    background: none; border: 1.5px solid var(--border);
+    border-radius: 50px; padding: 6px 14px;
+    cursor: pointer; color: var(--text2);
+    font-size: 0.8rem; font-family: 'DM Sans', sans-serif;
+    font-weight: 500; transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; border: none; background: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 100px 10% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -10%; right: -5%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(44,95,138,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: 10%; left: -5%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+  .hero-content { max-width: 680px; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--tag-bg); color: var(--accent);
+    padding: 6px 16px; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 1.5rem;
+    border: 1px solid rgba(44,95,138,0.2);
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold); display: block;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.5)} }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--text2);
+    margin-bottom: 2rem; font-weight: 300;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    padding: 12px 28px; border-radius: 4px;
+    text-decoration: none; font-weight: 500;
+    font-size: 0.9rem; letter-spacing: 0.03em;
+    transition: all 0.25s;
+    border: 1.5px solid var(--accent);
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--accent2); border-color: var(--accent2); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--accent);
+    padding: 12px 28px; border-radius: 4px;
+    text-decoration: none; font-weight: 500;
+    font-size: 0.9rem; letter-spacing: 0.03em;
+    border: 1.5px solid var(--accent);
+    transition: all 0.25s; display: inline-block;
+  }
+  .btn-outline:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 3rem;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 600; color: var(--accent);
+  }
+  .stat p { font-size: 0.8rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .scroll-indicator {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--text2); font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: fadeUp 0.6s 0.6s ease both;
+  }
+  .scroll-line {
+    width: 1px; height: 40px; background: var(--border);
+    position: relative; overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute; top: -100%; left: 0;
+    width: 100%; height: 100%;
+    background: var(--accent);
+    animation: scrollDown 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollDown { 0%{top:-100%} 100%{top:200%} }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  /* SECTIONS */
+  section { padding: 90px 10%; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; max-width: 60px; height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300; margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+  .section-desc {
+    color: var(--text2); font-size: 1rem;
+    max-width: 540px; margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: center;
+  }
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-avatar {
+    width: 100%; aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--tag-bg) 100%);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem; color: var(--accent);
+    position: relative; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .about-avatar::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(44,95,138,0.05) 0%, rgba(201,168,76,0.05) 100%);
+  }
+  .about-deco {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 120px; height: 120px;
+    border: 1.5px solid var(--gold); border-radius: 4px;
+    opacity: 0.5;
+  }
+  .about-deco2 {
+    position: absolute; top: -15px; left: -15px;
+    width: 80px; height: 80px;
+    border: 1px solid var(--accent); border-radius: 4px;
+    opacity: 0.3;
+  }
+  .about-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 400; margin-bottom: 1rem;
+  }
+  .about-text p { color: var(--text2); margin-bottom: 1.2rem; font-weight: 300; font-size: 0.95rem; }
+  .about-info { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+  .info-item label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); }
+  .info-item p { font-size: 0.9rem; color: var(--text); font-weight: 400; }
+
+  /* SKILLS */
+  .skills-bg { background: var(--bg2); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 2rem;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .skill-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--accent);
+    transition: height 0.3s;
+  }
+  .skill-card:hover::before { height: 100%; }
+  .skill-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--accent); }
+  .skill-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--tag-bg); display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1rem;
+  }
+  .skill-card h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    background: var(--tag-bg); color: var(--tag-text);
+    padding: 4px 12px; border-radius: 50px;
+    font-size: 0.78rem; font-weight: 500;
+    border: 1px solid rgba(44,95,138,0.15);
+  }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 2.5rem;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 1.5rem; align-items: start;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: linear-gradient(90deg, var(--accent), var(--gold));
+    transform: scaleX(0); transition: transform 0.3s; transform-origin: left;
+  }
+  .project-card:hover::after { transform: scaleX(1); }
+  .project-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+  .project-badge {
+    display: inline-block; background: var(--tag-bg); color: var(--accent);
+    padding: 3px 12px; border-radius: 50px; font-size: 0.72rem;
+    font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 1rem; border: 1px solid rgba(44,95,138,0.2);
+  }
+  .project-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 400; margin-bottom: 0.75rem;
+  }
+  .project-card p { color: var(--text2); font-size: 0.92rem; margin-bottom: 1.2rem; font-weight: 300; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .stack-tag {
+    background: var(--bg2); color: var(--text2);
+    padding: 4px 12px; border-radius: 4px;
+    font-size: 0.78rem; border: 1px solid var(--border);
+  }
+  .project-links { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-end; }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--accent); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500;
+    padding: 8px 16px; border: 1.5px solid var(--accent);
+    border-radius: 4px; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .project-link:hover { background: var(--accent); color: #fff; }
+
+  /* CERTIFICATIONS */
+  .certs-bg { background: var(--bg2); }
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .cert-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 2rem;
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    transition: all 0.3s;
+  }
+  .cert-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--gold); }
+  .cert-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .cert-info h4 { font-size: 1rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .cert-info p { color: var(--text2); font-size: 0.82rem; }
+  .cert-badge {
+    margin-top: 0.5rem; display: inline-block;
+    background: var(--tag-bg); color: var(--gold);
+    padding: 2px 10px; border-radius: 50px; font-size: 0.7rem;
+    font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.3);
+  }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .contact-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 400; margin-bottom: 1rem;
+  }
+  .contact-info p { color: var(--text2); font-size: 0.95rem; margin-bottom: 2rem; font-weight: 300; }
+  .contact-items { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; text-decoration: none;
+    color: var(--text); transition: all 0.2s;
+  }
+  .contact-item:hover { border-color: var(--accent); transform: translateX(4px); }
+  .contact-item-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--tag-bg); display: flex; align-items: center;
+    justify-content: center; font-size: 1rem; flex-shrink: 0;
+  }
+  .contact-item-text label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text2); }
+  .contact-item-text p { font-size: 0.9rem; font-weight: 500; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text2); }
+  .form-group input, .form-group textarea {
+    background: var(--input-bg); border: 1.5px solid var(--border);
+    border-radius: 6px; padding: 12px 16px;
+    color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; transition: border-color 0.2s;
+    outline: none; resize: vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+  .form-group textarea { min-height: 130px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .submit-btn {
+    background: var(--accent); color: #fff;
+    border: none; padding: 14px 32px; border-radius: 4px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    font-weight: 500; letter-spacing: 0.05em;
+    cursor: pointer; transition: all 0.25s;
+    display: flex; align-items: center; gap: 8px; width: fit-content;
+  }
+  .submit-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+  .form-success {
+    display: none; background: var(--tag-bg); border: 1px solid var(--accent);
+    border-radius: 6px; padding: 1rem 1.5rem;
+    color: var(--accent); font-size: 0.9rem;
+    align-items: center; gap: 8px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg2); border-top: 1px solid var(--border);
+    padding: 3rem 10%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { color: var(--text2); font-size: 0.85rem; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    color: var(--text2); text-decoration: none;
+    font-size: 0.85rem; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* STORE PREVIEW GALLERY */
+  .store-preview {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .store-preview-frame {
+    aspect-ratio: 16/9;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .store-preview-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+  }
+  .store-preview-frame:hover img { transform: scale(1.04); }
+  .store-preview-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.55));
+    color: #fff; font-size: 0.72rem; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 0.6rem 0.8rem 0.5rem;
+  }
+  @media (max-width: 768px) {
+    .store-preview { grid-template-columns: 1fr; }
+  }
+
+  .mobile-menu {
+    display: none; position: fixed; top: 64px; left: 0; right: 0;
+    background: var(--nav-bg); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 5%; flex-direction: column; gap: 1.2rem;
+    z-index: 999;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    text-decoration: none; color: var(--text);
+    font-size: 1rem; font-weight: 500; padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links, .theme-btn { display: none; }
+    .hamburger { display: flex; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero { padding: 100px 6% 60px; }
+    section { padding: 70px 6%; }
+    .form-row { grid-template-columns: 1fr; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-links { flex-direction: row; align-items: flex-start; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .hero-stats { gap: 2rem; }
+    .mobile-theme { display: flex !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Amina Ajaz</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
+    <span id="themeIcon">🌙</span> Dark Mode
+  </button>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#certifications" onclick="closeMenu()">Certifications</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <button class="theme-btn mobile-theme" style="display:none" onclick="toggleTheme()">
+    <span id="themeIconMobile">🌙</span> Dark Mode
+  </button>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1>Amina <em>Ajaz</em></h1>
+    <p class="hero-sub">Web Developer & Designer · Final Year BSCS Student<br>Virtual University of Pakistan</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <h3>3.49</h3>
+        <p>GPA Score</p>
+      </div>
+      <div class="stat">
+        <h3>2+</h3>
+        <p>Projects Built</p>
+      </div>
+      <div class="stat">
+        <h3>BSCS</h3>
+        <p>Degree 2026</p>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Get to know me</div>
+  <h2 class="section-title">About <em>Me</em></h2>
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <div class="about-avatar">
+        <div class="about-deco2"></div>
+        <img src="logo AA.png" alt="A" srcset="">
+        <div class="about-deco"></div>
+      </div>
+    </div>
+    <div class="about-text">
+      <h3>Passionate Developer with an Eye for Design</h3>
+      <p>I'm a final-semester Computer Science student at Virtual University of Pakistan, specializing in web development and UI design. I love crafting clean, responsive digital experiences that blend functionality with aesthetic elegance.</p>
+      <p>My journey in tech has been driven by curiosity — from building my first HTML page to developing an AI-powered discussion board system as my final year project. I thrive at the intersection of code and creativity.</p>
+      <p>When I'm not coding, I'm exploring new design trends, contributing to academic projects, and continuously expanding my skillset through certifications and self-learning.</p>
+      <div class="about-info">
+        <div class="info-item">
+          <label>Email</label>
+          <p>aminaajaz193@gmail.com</p>
+        </div>
+        <div class="info-item">
+          <label>Phone</label>
+          <p>03007549791</p>
+        </div>
+        <div class="info-item">
+          <label>University</label>
+          <p>Virtual University of Pakistan</p>
+        </div>
+        <div class="info-item">
+          <label>Graduating</label>
+          <p>August 2026</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-bg">
+  <div class="section-label">What I work with</div>
+  <h2 class="section-title">Technical <em>Skills</em></h2>
+  <p class="section-desc">A curated set of tools and technologies I use to bring ideas to life.</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🌐</div>
+      <h4>Frontend Development</h4>
+      <div class="skill-tags">
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">React.js</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <h4>Backend Development</h4>
+      <div class="skill-tags">
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">REST APIs</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💻</div>
+      <h4>Programming Languages</h4>
+      <div class="skill-tags">
+        <span class="skill-tag">C / C++</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎨</div>
+      <h4>Design & CMS</h4>
+      <div class="skill-tags">
+        <span class="skill-tag">WordPress</span>
+        <span class="skill-tag">Responsive Design</span>
+        <span class="skill-tag">UI/UX</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔧</div>
+      <h4>Tools & Platforms</h4>
+      <div class="skill-tags">
+        <span class="skill-tag">Git & GitHub</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">Cisco Packet Tracer</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🧠</div>
+      <h4>Core Concepts</h4>
+      <div class="skill-tags">
+        <span class="skill-tag">OOP</span>
+        <span class="skill-tag">Networking</span>
+        <span class="skill-tag">Data Structures</span>
+        <span class="skill-tag">Agile</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">What I've built</div>
+  <h2 class="section-title">Featured <em>Projects</em></h2>
+  <p class="section-desc">Real-world applications built with care, creativity, and clean code.</p>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div>
+        <span class="project-badge">🛍️ E-Commerce · WooCommerce</span>
+        <h3>NestCraft — Artisan Home Décor Store</h3>
+        <p>A fully functional online store built on WordPress &amp; WooCommerce, selling handmade and artisan home décor, kitchenware, and lighting. The store features both Simple and Variable product types (supporting size &amp; colour variations), a curated "Shop by Category" layout, and a "New In" section highlighting the latest arrivals. Key e-commerce features include shipping zones configured for both domestic (Pakistan) and international delivery, tax rules, discount coupons, and a polished dark-green branded footer. Products are priced in PKR and managed through a full WooCommerce product catalogue — making it an ideal practise ground for real-world store configuration.</p>
+        <div class="store-preview">
+          <div class="store-preview-frame">
+            <img src="nestcraft-footer.png" alt="NestCraft store footer with navigation links" onerror="this.parentElement.style.background='var(--bg2)';this.style.display='none'"/>
+            <span class="store-preview-label">Footer &amp; Navigation</span>
+          </div>
+          <div class="store-preview-frame">
+            <img src="nestcraft-categories.png" alt="Shop by Category — Kitchenware, Lighting, Soft Furnishings" onerror="this.parentElement.style.background='var(--bg2)';this.style.display='none'"/>
+            <span class="store-preview-label">Shop by Category</span>
+          </div>
+          <div class="store-preview-frame">
+            <img src="nestcraft-newin.png" alt="New In product grid — Knit Throw, Botanical Print, Wooden Bowl, Soy Candle" onerror="this.parentElement.style.background='var(--bg2)';this.style.display='none'"/>
+            <span class="store-preview-label">New In Products</span>
+          </div>
+          <div class="store-preview-frame">
+            <img src="nestcraft-kitchenware.png" alt="Kitchenware category page with product listings" onerror="this.parentElement.style.background='var(--bg2)';this.style.display='none'"/>
+            <span class="store-preview-label">Kitchenware Category</span>
+          </div>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">WordPress</span>
+          <span class="stack-tag">WooCommerce</span>
+          <span class="stack-tag">PHP</span>
+          <span class="stack-tag">Custom CSS</span>
+          <span class="stack-tag">Shipping Zones</span>
+          <span class="stack-tag">Product Variations</span>
+        </div>
+      </div>
+      <div class="project-links">
+        <a href="https://nestcraft.great-site.net/" class="project-link" target="_blank">
+          ↗ Live Site
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div>
+        <span class="project-badge">🎓 Final Year Project</span>
+        <h3>Intelligent MDB System</h3>
+        <p>A smart Moderated Discussion Board that uses AI and Natural Language Processing to filter irrelevant student queries (greetings, one-word replies, off-topic messages) and auto-respond to them. Relevant academic questions are intelligently routed to instructors — reducing workload while improving student support quality.</p>
+        <div class="project-stack">
+          <span class="stack-tag">React.js</span>
+          <span class="stack-tag">Node.js</span>
+          <span class="stack-tag">MongoDB</span>
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">NLP / AI</span>
+        </div>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Ami765" class="project-link" target="_blank">
+          ↗ GitHub
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications" class="certs-bg">
+  <div class="section-label">Credentials</div>
+  <h2 class="section-title">My <em>Certifications</em></h2>
+  <p class="section-desc">Verified credentials that complement my academic and practical knowledge.</p>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-icon">🌐</div>
+      <div class="cert-info">
+        <h4>WordPress Development</h4>
+        <p>Design & develop professional websites using WordPress CMS, themes, and plugins.</p>
+        <span class="cert-badge">Certified</span>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">⚡</div>
+      <div class="cert-info">
+        <h4>C++ Essentials</h4>
+        <p>Fundamental to advanced C++ programming concepts — Cisco Networking Academy.</p>
+        <span class="cert-badge">Certified</span>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🔗</div>
+      <div class="cert-info">
+        <h4>Cisco Networking (CCNA Fundamentals)</h4>
+        <p>Core networking principles including protocols, routing, switching, and network security.</p>
+        <span class="cert-badge">Certified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's talk</div>
+  <h2 class="section-title">Get In <em>Touch</em></h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Open to Opportunities</h3>
+      <p>Whether you have a project in mind, a job opportunity, or just want to say hello — my inbox is always open. I'll get back to you as soon as possible!</p>
+      <div class="contact-items">
+        <a href="mailto:aminaajaz193@gmail.com" class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-text">
+            <label>Email</label>
+            <p>aminaajaz193@gmail.com</p>
+          </div>
+        </a>
+        <a href="tel:03007549791" class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div class="contact-item-text">
+            <label>Phone</label>
+            <p>03007549791</p>
+          </div>
+        </a>
+        <a href="https://github.com/Ami765" target="_blank" class="contact-item">
+          <div class="contact-item-icon">🐙</div>
+          <div class="contact-item-text">
+            <label>GitHub</label>
+            <p>github.com/Ami765</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="John" required/>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Doe" required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="john@example.com" required/>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="Job Opportunity / Project Inquiry" required/>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell me about your project or opportunity..." required></textarea>
+      </div>
+      <div class="form-success" id="formSuccess">
+        ✅ Thank you! Your message has been sent. I'll get back to you soon.
+      </div>
+      <button type="submit" class="submit-btn">
+        Send Message ↗
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Amina Ajaz · Designed & Developed with ♥</p>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // THEME TOGGLE
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    const icon = isDark ? '🌙' : '☀️';
+    const label = isDark ? ' Dark Mode' : ' Light Mode';
+    document.getElementById('themeBtn').innerHTML = `<span>${icon}</span>${label}`;
+    document.getElementById('themeIconMobile').textContent = icon;
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  }
+
+  // Load saved theme
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('themeBtn').innerHTML = '<span>☀️</span> Light Mode';
+    document.getElementById('themeIconMobile').textContent = '☀️';
+  }
+
+  // MOBILE MENU
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // CONTACT FORM
+  function handleSubmit(e) {
+    e.preventDefault();
+    const success = document.getElementById('formSuccess');
+    success.style.display = 'flex';
+    e.target.reset();
+    setTimeout(() => success.style.display = 'none', 5000);
+  }
+
+  // SCROLL ANIMATIONS
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'fadeUp 0.6s ease both';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-card, .project-card, .cert-card, .contact-item').forEach(el => {
+    el.style.opacity = '0';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
